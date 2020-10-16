@@ -22,6 +22,16 @@ These three services working as a single platform to enable the total automation
 	 - API - https://xinitiatorapiv1-test.azurewebsites.net/swagger
 	 - Frontend - https://xinitiatortest.z19.web.core.windows.net
 
+**Completed Tasks**
+
+ - [x] Authentication Implemented
+ - [x] Build Pipelines configured
+ - [x] Release Pipelines configured for Dev and Test Environments
+ - [x] Initiative Management and User Management Completed
+ - [x] Total Database Design completed
+ - [x] Backlog groomed upto completed tasks and estimated
+ - [x] Application Health can be view with Application Insights
+
 **Used Technologies**
 
  - React with Typescript
