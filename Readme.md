@@ -1,5 +1,3 @@
-**
-
 ## XInitiator - Empowering Xians
 
 XInitiator is designed for managing 99x's internal initiatives by easy and reliable way. This platform is developed for improve the visibility of the xians and their initiative works by reducing their manual task overhead to manage the initiatives.
