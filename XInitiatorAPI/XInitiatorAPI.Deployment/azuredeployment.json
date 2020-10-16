@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "siteName": {
+            "minLength": 1,
+            "type": "string",
+            "metadata": {
+                "description": "api host name (name.azurewebsites.net)"
+            }
+        },
+        "commonServerFarmId": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "common server farm in NK-Prod or NK-Test to reduce costs. If testing on your MSDN account, just create an app plan and get the ID."
+            }
+        }
+    },
+    "resources": [
+        {
+            "name": "[parameters('siteName')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2016-08-01",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "name": "[parameters('siteName')]",
+                "serverFarmId": "[parameters('commonServerFarmId')]",
+                "siteConfig": {
+                    "alwaysOn": true
+                },
+                "httpsOnly": true
+            }
+        },
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[parameters('siteName')]",
+            "type": "microsoft.insights/components",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('siteName'))]": "Resource",
+                "displayName": "[concat('AppInsights', parameters('siteName'))]"
+            },
+            "properties": {
+                "ApplicationId": "[parameters('siteName')]",
+                "Request_Source": "IbizaWebAppExtensionCreate"
+            }
+        }
+    ],
+    "outputs": {
+        "appInsightInstrumentationKey": {
+            "type": "string",
+            "value": "[reference(resourceId('microsoft.insights/components/', parameters('siteName')), '2015-05-01').InstrumentationKey]"
+        }
+    }
+}
